@@ -1,16 +1,15 @@
-FROM rust:1.50-alpine
+FROM rust:1.50-buster
 
-RUN apk add --no-cache libc-dev openssl-dev && \
-    rustup component add rustfmt rls rust-analysis rust-src && \
+RUN rustup component add rustfmt rls rust-analysis rust-src && \
     cargo install cargo-edit
 
-RUN apk add --no-cache curl && \
-    mkdir -p /root/.cargo/bin && \
+RUN mkdir -p /root/.cargo/bin && \
     curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o /root/.cargo/bin/rust-analyzer
 
 ENV PATH=/root/.cargo/bin:${PATH}
 
-RUN apk add --no-cache emacs git
+RUN apt-get update && \
+    apt-get install -y emacs git
 
 ARG emacs_home=/root/.emacs.d
 ARG site_lisp=${emacs_home}/site-lisp
