@@ -19,6 +19,7 @@
 (install-packages '(magit
                     markdown-mode
                     smex
+                    projectile
                     leaf))
 
 ;; ----- keybind ----- ;;
@@ -94,6 +95,10 @@
 
 (global-set-key (kbd "C-c s w") 'swap-windows)
 
+(setq shell-file-name "/bin/bash")
+(setenv "SHELL" shell-file-name)
+(setq explicit-shell-file-name shell-file-name)
+
 ;; ----- Other libraries ----- ;;
 
 ;; display the directory name of the file when files that have a same name are opened
@@ -122,6 +127,16 @@
   :bind (("C-c h" . lsp-describe-thing-at-point))
   :custom ((lsp-rust-server 'rust-analyzer)))
 
+;; --- projectile --- ;;
+
+(leaf projectile
+  ;; TODO: Try the following settigns for newer version of leaf
+  ;; :bind-keymap
+  ;; ("C-c p" . projectile-command-map)
+  :config
+  (projectile-mode t)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
 ;; --------------------- ;;
 ;; --- auto settings --- ;;
 ;; --------------------- ;;
@@ -132,7 +147,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(magit-merge-arguments (quote ("--no-ff")))
- '(package-selected-packages (quote (leaf wgrep smex w3m paredit markdown-mode magit))))
+ '(package-selected-packages
+   (quote
+    (projectile leaf wgrep smex w3m paredit markdown-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
