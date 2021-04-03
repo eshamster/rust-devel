@@ -130,12 +130,10 @@
 ;; --- projectile --- ;;
 
 (leaf projectile
-  ;; TODO: Try the following settigns for newer version of leaf
-  ;; :bind-keymap
-  ;; ("C-c p" . projectile-command-map)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :config
-  (projectile-mode t)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (projectile-mode t))
 
 ;; --------------------- ;;
 ;; --- auto settings --- ;;
